@@ -1,57 +1,75 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React from "react";
+import "./App.css";
+import {
+  decrement,
+  increment,
+  incrementByAmount,
+  decrementByAmount,
+} from "./redux/counterReducer";
+import { useSelector, useDispatch } from "react-redux";
 
 function App() {
+  const count = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
+    <>
+      <div className="container">
+        <h1>Increment/Decrement Counter</h1>
+        <h4>Using React and Redux</h4>
+
+        <div className="quantity">
           <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
+            className="quantity__minus"
+            title="Decrement"
+            onClick={() => dispatch(decrementByAmount(8))}
           >
-            React
+            <span>-8</span>
           </a>
-          <span>, </span>
           <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
+            className="quantity__minus"
+            title="Decrement"
+            onClick={() => dispatch(decrementByAmount(5))}
           >
-            Redux
+            <span>-5</span>
           </a>
-          <span>, </span>
           <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
+            className="quantity__minus"
+            title="Decrement"
+            onClick={() => dispatch(decrement())}
           >
-            Redux Toolkit
+            <span>-</span>
           </a>
-          ,<span> and </span>
+          <input
+            name="quantity"
+            type="text"
+            className="quantity__input"
+            value={count}
+          />
           <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
+            className="quantity__plus"
+            title="Increment"
+            onClick={() => dispatch(increment())}
           >
-            React Redux
+            <span>+</span>
           </a>
-        </span>
-      </header>
-    </div>
+          <a
+            className="quantity__plus"
+            title="Increment"
+            onClick={() => dispatch(incrementByAmount(5))}
+          >
+            <span>+5</span>
+          </a>
+          <a
+            className="quantity__plus"
+            title="Increment"
+            onClick={() => dispatch(incrementByAmount(8))}
+          >
+            <span>+8</span>
+          </a>
+        </div>
+      </div>
+    </>
   );
 }
 
